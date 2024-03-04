@@ -1,16 +1,20 @@
 const Post = require('../models/post');
 
-
+const postsPerPage = 3;
 
 function getAllPosts(req, res) {
-    const post = Post.find({}).then((posts)=> {
-        res.send(posts);
-    }).catch((err)=>{
-        console.log(err);
-        res.status(500).send("Server error");
-    });
+    const page = req.query.p || 0;
+    Post.find({})
+        .skip(page * postsPerPage)
+        .limit(postsPerPage)
+        .then(posts => {
+            res.send(posts);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send("Server error");
+        });
 }
-
 
 function createPost(req, res) {
     const newPost = new Post({
