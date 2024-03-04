@@ -25,6 +25,7 @@ mongoose
   .catch((error) => console.log("Error: ", error));
 app.use(loginRoutes);
 app.use(postRoutes);
+
 // Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);
